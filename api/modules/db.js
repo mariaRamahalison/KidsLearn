@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 //Set up default mongoose connection
-var url = 'mongodb://localhost:27017/Ekaly';
+var url = 'mongodb://localhost:27017/kidslearn';
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true});
 
 //Get the default connection

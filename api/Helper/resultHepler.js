@@ -6,6 +6,12 @@ function succes(res,data,message){
     })
 }
 
+function test(res,data,message){
+    res.status(200).send(
+        data
+    )
+}
+
 function error(res,message){
     res.status(400).send({
         code:400,
@@ -15,5 +21,6 @@ function error(res,message){
 
 module.exports={
     succes,
-    error
+    error,
+    test
 }

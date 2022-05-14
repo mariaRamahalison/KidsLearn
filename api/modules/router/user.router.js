@@ -7,13 +7,16 @@ const UserRouter = (url, app) => {
 
     app.post("/user/login", (req, res) => {
         log = req.body
+        console.log(log.mdp);
+        console.log(log.email);
         UserService.login(log)
             .then(user => {
                 if(user.length==0) throw new Error("Email ou mot de passe incorrecte");
                 token = jwtHelper.generateToken(user[0]);
-                resultHelper.succes(res, { token: token, user: user[0]} ,"");
+                console.log("nety login yes");
+                resultHelper.succes(res, { token: token, user: user[0]} ,"login ok");
             })
-            .catch(error => { resultHelper.error(res, error.message); });
+            .catch(error => { console.log("error");resultHelper.error(res, error.message); });
     });
 
     app.post("/user/inscription", (req, res) => {
@@ -48,7 +51,8 @@ const UserRouter = (url, app) => {
     });
 
     app.get("/test", (req, res) => {
-        resultHelper.succes(res,"test MANDEHA","");
+        console.log("niditra");
+        resultHelper.succes(res,"test MANDEHA","test MANDEHA MESSAGE");
     });
     
 }

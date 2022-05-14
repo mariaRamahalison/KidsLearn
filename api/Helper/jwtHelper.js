@@ -6,7 +6,10 @@ async function encrypt(data, nb) {
 }
 
 async function encryptPassword(password) {
-    return crypto.createHash('sha1').update(password).digest('hex')
+    console.log(password);
+    let test=crypto.createHash('sha1').update(password).digest('hex');
+    console.log(test+ " netyyyyyy password");
+    return test;
 }
 
 function generateToken(user) {

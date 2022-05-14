@@ -13,7 +13,7 @@ function test(res,data,message){
 }
 
 function error(res,message){
-    res.status(400).send({
+    res.status(200).send({
         code:400,
         message:message
     })

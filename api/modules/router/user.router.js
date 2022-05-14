@@ -6,17 +6,19 @@ var resultHelper = require('../../Helper/resultHepler');
 const UserRouter = (url, app) => {
 
     app.post("/user/login", (req, res) => {
-        log = req.body
-        console.log(log.mdp);
+        // log = req.body
+        log=JSON.parse(JSON.stringify(req.body));
+        console.log(log);
         console.log(log.email);
         UserService.login(log)
             .then(user => {
+                console.log(user);
                 if(user.length==0) throw new Error("Email ou mot de passe incorrecte");
                 token = jwtHelper.generateToken(user[0]);
                 console.log("nety login yes");
                 resultHelper.succes(res, { token: token, user: user[0]} ,"login ok");
             })
-            .catch(error => { console.log("error");resultHelper.error(res, error.message); });
+            .catch(error => { resultHelper.error(res, error.message); });
     });
 
     app.post("/user/inscription", (req, res) => {

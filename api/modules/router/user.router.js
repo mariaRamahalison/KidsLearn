@@ -12,11 +12,11 @@ const UserRouter = (url, app) => {
         console.log(log.email);
         UserService.login(log)
             .then(user => {
-                console.log(user);
+                console.log("login ok");
                 if(user.length==0) throw new Error("Email ou mot de passe incorrecte");
                 token = jwtHelper.generateToken(user[0]);
-                console.log("nety login yes");
                 resultHelper.succes(res, { token: token, user: user[0]} ,"login ok");
+                // res.status(200).send({token:token , user:user})
             })
             .catch(error => { resultHelper.error(res, error.message); });
     });

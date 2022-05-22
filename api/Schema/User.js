@@ -19,6 +19,11 @@ const UserSchema = new Schema({
         validate: [String, 'invalid email'],
         required: [true, "Veuillez entrer une adresse email"]
     },
+    sexe: {
+        type: String,
+        validate: [String, 'invalid sexe'],
+        required: [true, "Veuillez entrer un sexe"]
+    }
 });
 
 

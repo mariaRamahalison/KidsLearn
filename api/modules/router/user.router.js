@@ -1,18 +1,17 @@
 const UserService = require('../../services/UserService');
 var jwtHelper = require('../../Helper/jwtHelper');
 var resultHelper = require('../../Helper/resultHepler');
-
+const fs = require("fs");
+const path = require("path");
+const url = require("url");
+const parse= require ('url');
 
 const UserRouter = (url, app) => {
 
     app.post("/user/login", (req, res) => {
-        // log = req.body
         log=JSON.parse(JSON.stringify(req.body));
-        console.log(log);
-        console.log(log.email);
         UserService.login(log)
             .then(user => {
-                console.log("login ok");
                 if(user.length==0) throw new Error("Email ou mot de passe incorrecte");
                 token = jwtHelper.generateToken(user[0]);
                 resultHelper.succes(res, { token: token, user: user[0]} ,"login ok");
@@ -43,19 +42,17 @@ const UserRouter = (url, app) => {
     });
 
     app.put("/api/user/update", (req, res) => {
+        console.log("nitiditra" );
+        console.log(req.body );
         UserService.update(req.body)
             .then(user => {
                 if (user) {
-                    resultHelper.succes(res,user,"")
+                    resultHelper.data(res,user)
                 }
             })
             .catch(error => {  console.log(error); resultHelper.error(res, error.message); });
     });
 
-    app.get("/test", (req, res) => {
-        console.log("niditra");
-        resultHelper.succes(res,"test MANDEHA","test MANDEHA MESSAGE");
-    });
     
 }
 

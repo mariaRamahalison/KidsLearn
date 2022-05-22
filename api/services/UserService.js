@@ -32,18 +32,32 @@ async function inscription(us) {
 
 async function login(log) {
     
-    console.log("haha");
     log.mdp = await jwtHelper.encryptPassword(log.mdp);
-    console.log("hehe");
     let email=log.email;
     let mdp=log.mdp;
-    return await find({ "email": email, "mdp": mdp });
+    return await find({ "email": log.email, "mdp": log.mdp });
 }
 
+// async function update(item) {
+//     return await UserModel
+//         .findOneAndUpdate({ _id: item._id }, item, { new: true })
+//         .exec();
+// }
+
+
 async function update(item) {
+
+    if(item?.mdp!=null && item.mdp!=""){
+        item.mdp=await jwtHelper.encryptPassword(item.mdp);
+    }else{
+        delete(item.mdp);
+    }
     return await UserModel
-        .findOneAndUpdate({ _id: item._id }, item, { new: true })
-        .exec();
+        .findOneAndUpdate(
+            { email: item.email },
+            { "$set": item },
+            { new: true }
+        );
 }
 
 module.exports = {
